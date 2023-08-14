@@ -69,8 +69,8 @@ type CommonBuilder interface {
 	Build() (*http.Request, error)
 	Do() (*http.Response, error)
 	Handle(...ResponseHandler) error
-	JsonResponse(v any) error
-	XmlResponse(v any) error
+	JsonHandler(v any) error
+	XmlHandler(v any) error
 	Before(fn BeforeFn) CommonBuilder
 	After(fn AfterFn) CommonBuilder
 }

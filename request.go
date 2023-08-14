@@ -117,14 +117,14 @@ func (b *builder) Before(before BeforeFn) CommonBuilder {
 	return dupe
 }
 
-func (b *builder) JsonResponse(v any) error {
+func (b *builder) JsonHandler(v any) error {
 	b.setAcceptHeader(MimeTypeJson)
 	b.handlers = append(b.handlers, response.JsonHandler(v))
 	_, err := b.Do()
 	return err
 }
 
-func (b *builder) XmlResponse(v any) error {
+func (b *builder) XmlHandler(v any) error {
 	b.setAcceptHeader(MimeTypeXml)
 	b.handlers = append(b.handlers, response.XmlHandler(v))
 	_, err := b.Do()

@@ -8,14 +8,14 @@ import (
 func BasicJsonRequest() {
 	var users []map[string]any
 	request.Get(`https://api.github.com/users`).
-		JsonResponse(&users)
+		JsonHandler(&users)
 }
 
 func ParameterJsonRequest() {
 	var users []map[string]any
 	request.Get(`https://api.github.com/users`).
 		AddParmeter(`page_size`, `5`).
-		JsonResponse(&users)
+		JsonHandler(&users)
 }
 
 func ConditonalJsonRequest() {
