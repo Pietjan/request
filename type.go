@@ -62,8 +62,8 @@ type DeleteBuilder interface {
 
 type CommonBuilder interface {
 	Context(ctx context.Context) CommonBuilder
-	AddParmeter(key string, value string) CommonBuilder
-	SetParmeter(key string, value string) CommonBuilder
+	AddParmeter(key string, value any) CommonBuilder
+	SetParmeter(key string, value any) CommonBuilder
 	AddHeader(key string, value string) CommonBuilder
 	SetHeader(key string, value string) CommonBuilder
 	Build() (*http.Request, error)

@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"encoding/xml"
+	"fmt"
 	"io"
 	"net/http"
 	"net/url"
@@ -143,9 +144,9 @@ func (b *builder) AddHeader(key string, value string) CommonBuilder {
 	return dupe
 }
 
-func (b *builder) AddParmeter(key string, value string) CommonBuilder {
+func (b *builder) AddParmeter(key string, value any) CommonBuilder {
 	dupe := b.clone()
-	dupe.parameter.values.Add(key, value)
+	dupe.parameter.values.Add(key, fmt.Sprint(value))
 	return dupe
 }
 
@@ -155,9 +156,9 @@ func (b *builder) SetHeader(key string, value string) CommonBuilder {
 	return dupe
 }
 
-func (b *builder) SetParmeter(key string, value string) CommonBuilder {
+func (b *builder) SetParmeter(key string, value any) CommonBuilder {
 	dupe := b.clone()
-	dupe.parameter.values.Set(key, value)
+	dupe.parameter.values.Set(key, fmt.Sprint(value))
 	return dupe
 }
 
