@@ -19,12 +19,6 @@ func Builder(options ...func(*builder)) RequestBuilder {
 		context: context.Background(),
 		method:  http.MethodGet,
 		url:     ``,
-		header: Header{
-			values: map[string][]string{},
-		},
-		parameter: Parameter{
-			values: map[string][]string{},
-		},
 	}
 
 	for _, fn := range options {
@@ -55,7 +49,7 @@ func Delete(url string, options ...func(*builder)) DeleteBuilder {
 }
 
 func (b *builder) clone() *builder {
-	return &builder{
+	dupe := &builder{
 		context:   b.context,
 		client:    b.client,
 		method:    b.method,
@@ -67,6 +61,16 @@ func (b *builder) clone() *builder {
 		after:     b.after,
 		handlers:  b.handlers,
 	}
+
+	if dupe.header.values == nil {
+		dupe.header.values = make(http.Header)
+	}
+
+	if dupe.parameter.values == nil {
+		dupe.parameter.values = make(url.Values)
+	}
+
+	return dupe
 }
 
 func (b *builder) setContentTypeHeader(s string) {
