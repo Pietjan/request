@@ -20,6 +20,8 @@ const (
 	HeaderContentType = `Content-Type`
 )
 
+type Option = func(*builder)
+
 type RequestBuilder interface {
 	Get(url string) GetBuilder
 	Post(url string) PostBuilder

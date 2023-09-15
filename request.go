@@ -13,7 +13,7 @@ import (
 	"github.com/pietjan/request/response"
 )
 
-func Builder(options ...func(*builder)) RequestBuilder {
+func Builder(options ...Option) RequestBuilder {
 	b := &builder{
 		client:  http.DefaultClient,
 		context: context.Background(),
@@ -28,23 +28,23 @@ func Builder(options ...func(*builder)) RequestBuilder {
 	return b
 }
 
-func Get(url string, options ...func(*builder)) GetBuilder {
+func Get(url string, options ...Option) GetBuilder {
 	return Builder(options...).Get(url)
 }
 
-func Put(url string, options ...func(*builder)) PutBuilder {
+func Put(url string, options ...Option) PutBuilder {
 	return Builder(options...).Put(url)
 }
 
-func Post(url string, options ...func(*builder)) PostBuilder {
+func Post(url string, options ...Option) PostBuilder {
 	return Builder(options...).Post(url)
 }
 
-func Patch(url string, options ...func(*builder)) PatchBuilder {
+func Patch(url string, options ...Option) PatchBuilder {
 	return Builder(options...).Patch(url)
 }
 
-func Delete(url string, options ...func(*builder)) DeleteBuilder {
+func Delete(url string, options ...Option) DeleteBuilder {
 	return Builder(options...).Delete(url)
 }
 
@@ -307,7 +307,7 @@ func (b *builder) Do() (*http.Response, error) {
 	return response, err
 }
 
-func Client(client *http.Client) func(*builder) {
+func Client(client *http.Client) Option {
 	return func(b *builder) {
 		if client == nil {
 			panic(`nil client`)
@@ -317,13 +317,13 @@ func Client(client *http.Client) func(*builder) {
 	}
 }
 
-func Before(fn BeforeFn) func(*builder) {
+func Before(fn BeforeFn) Option {
 	return func(b *builder) {
 		b.before = append(b.before, fn)
 	}
 }
 
-func After(fn AfterFn) func(*builder) {
+func After(fn AfterFn) Option {
 	return func(b *builder) {
 		b.after = append(b.after, fn)
 	}
