@@ -179,7 +179,7 @@ func (b *builder) JsonBody(v any) CommonBuilder {
 	if err := json.NewEncoder(buf).Encode(v); err != nil {
 		panic(err)
 	}
-	b.body = buf
+	dupe.body = buf
 
 	dupe.setContentTypeHeader(MimeTypeJson)
 
